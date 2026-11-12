@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=../../wiki.schema.json
+version: 1
+title: 開発 Wiki
+root: content
+home: home
+output:
+  mode: single
+  path: out/index.html
+pages:
+- id: home
+  documents:
+  - id: home
+    source: home.md
+- id: frame
+  title: フレーム更新
+  documents:
+  - id: frame-overview
+    source: frame-overview.md
+  - id: frame-order
+    source: frame-order.md
+- id: diagnostics
+  documents:
+  - id: diagnostics
+    source: diagnostics.md
+nav:
+- title: 基本情報
+  items:
+  - type: link
+    document: home
+- title: 技術資料
+  items:
+  - type: heading
+    title: システム仕様
+    items:
+    - type: tree
+      label: フレーム更新
+      fold: open
+      items:
+      - type: link
+        document: frame-overview
+        label: 概要
+      - type: link
+        document: frame-order
+      - type: link
+        document: frame-order
+        anchor: 入力処理
+        label: 入力処理
+    - type: link
+      document: diagnostics

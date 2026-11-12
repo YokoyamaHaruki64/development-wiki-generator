@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 64">
+  <title>フレーム内の処理順序</title>
+  <g fill="#f4f6f8" stroke="#5a6570" stroke-width="1.5">
+    <rect x="8" y="12" width="88" height="40" rx="4"/>
+    <rect x="131" y="12" width="88" height="40" rx="4"/>
+    <rect x="254" y="12" width="88" height="40" rx="4"/>
+    <path d="M102 32h23m-6-5 6 5-6 5m106-5h23m-6-5 6 5-6 5" fill="none"/>
+  </g>
+  <g fill="#20252a" font-family="Yu Gothic UI, Meiryo, sans-serif" font-size="16" text-anchor="middle">
+    <text x="52" y="38">入力</text>
+    <text x="175" y="38">更新</text>
+    <text x="298" y="38">描画</text>
+  </g>
+</svg>

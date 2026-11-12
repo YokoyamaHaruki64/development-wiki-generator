@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{TITLE}}</title>
+  <style>{{CSS}}</style>
+</head>
+<body>
+  <a class="skip-link" href="#article">本文へ移動</a>
+  <header class="site-header">
+    <a class="site-name" href="{{HOME}}">{{TITLE}}</a>
+    <form role="search">
+      <input type="search" id="wiki-search" placeholder="wiki内を検索" aria-label="wiki内を検索" disabled>
+    </form>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <button type="button" class="sidebar-toggle" aria-expanded="false" aria-controls="wiki-nav" hidden>文書一覧</button>
+      <nav id="wiki-nav" aria-label="文書一覧">{{NAV}}</nav>
+    </aside>
+    <main id="article" tabindex="-1">
+      <section id="search-results" aria-labelledby="search-status" hidden>
+        <p id="search-status" role="status"></p>
+        <ul id="search-matches"></ul>
+      </section>
+      {{PAGES}}
+    </main>
+  </div>
+  <dialog id="figure-dialog" aria-labelledby="figure-title">
+    <p id="figure-title"></p>
+    <div id="enlarged-figure"></div>
+    <form method="dialog"><button>閉じる</button></form>
+  </dialog>
+  <script>{{SCRIPT}}</script>
+</body>
+</html>

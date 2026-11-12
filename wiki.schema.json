@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wiki Generator v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "title", "home", "output", "pages", "nav"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "const": 1 },
+    "title": { "$ref": "#/$defs/text" },
+    "root": { "$ref": "#/$defs/text", "default": "." },
+    "home": { "$ref": "#/$defs/id" },
+    "output": { "$ref": "#/$defs/output" },
+    "pages": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/page" } },
+    "nav": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/navSection" } }
+  },
+  "$defs": {
+    "text": { "type": "string", "pattern": "\\S" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "path"],
+      "properties": {
+        "mode": { "const": "single" },
+        "path": { "$ref": "#/$defs/text" }
+      },
+      "if": { "properties": { "mode": { "const": "single" } }, "required": ["mode"] },
+      "then": { "properties": { "path": { "pattern": "\\.html$" } } }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "documents"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title": { "$ref": "#/$defs/text" },
+        "documents": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/document" } }
+      },
+      "if": { "properties": { "documents": { "minItems": 2 } }, "required": ["documents"] },
+      "then": { "required": ["title"] }
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "source": { "type": "string", "pattern": "\\.md$" }
+      }
+    },
+    "navSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "items"],
+      "properties": {
+        "title": { "$ref": "#/$defs/text" },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "oneOf": [{ "$ref": "#/$defs/heading" }, { "$ref": "#/$defs/treeItem" }] }
+        }
+      }
+    },
+    "heading": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "title", "items"],
+      "properties": {
+        "type": { "const": "heading" },
+        "title": { "$ref": "#/$defs/text" },
+        "items": { "$ref": "#/$defs/treeItems" }
+      }
+    },
+    "treeItems": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/treeItem" }
+    },
+    "treeItem": {
+      "oneOf": [{ "$ref": "#/$defs/tree" }, { "$ref": "#/$defs/link" }]
+    },
+    "tree": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "label", "items"],
+      "properties": {
+        "type": { "const": "tree" },
+        "label": { "$ref": "#/$defs/text" },
+        "fold": { "enum": ["open", "closed"] },
+        "items": { "$ref": "#/$defs/treeItems" }
+      }
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "document"],
+      "properties": {
+        "type": { "const": "link" },
+        "document": { "$ref": "#/$defs/id" },
+        "anchor": { "$ref": "#/$defs/text" },
+        "label": { "$ref": "#/$defs/text" }
+      }
+    }
+  }
+}
