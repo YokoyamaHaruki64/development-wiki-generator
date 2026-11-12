@@ -187,7 +187,7 @@ function lookupAnchor(document, local) {
 }
 
 function embedImage(path, alt) {
-  const mime = { ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg" }[extname(path).toLowerCase()];
+  const mime = { ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp" }[extname(path).toLowerCase()];
   requireInput(mime, `未対応の画像形式です: ${path}`);
   const data = readFileSync(path);
   const externalOrActive = /<(?:script|foreignObject)\b|\son\w+\s*=|(?:href\s*=\s*["']|url\(\s*["']?)(?!#)|@import/i;
